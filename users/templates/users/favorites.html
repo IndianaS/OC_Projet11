@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{% include 'pur_beurre/header.html' %}
+
+<section class="page-result" id="services">
+    <div class="container">
+        <h2 class="text-center mt-0 font-custom-title">
+            Liste des favoris
+        </h2>
+        <hr class="divider my-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 col-md-10 ">
+                <div class="mt-5">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            {% for substitute in substitutes %}
+                                <div class="col-lg-4 col-md-12">
+                                    <ul>
+                                        <div class="product">
+                                            <img src="{{ substitute.image_url }}" alt="Image du produit" class="img-p">
+                                            <img src="{% static 'img' %}/{{ substitute.nutrition_grade_fr|upper }}.png" alt="nutriscrore" class="score-logo">
+                                            <br>
+                                            <li><a href="{% url 'products:product_sheet' substitute.id %}">{{ substitute.product_name_fr }}</a></li>
+                                            <li><a href="{{ substitute.url }}">Voir la fiche d'Open Food Fact</a></li>
+                                            <form action="{% url 'products:delete_favorites' %}" method="POST">{% csrf_token %}<button
+                                                type="submit"><i class="far fa-trash-alt"></i></button>&nbsp Supprimer
+                                            <input type="hidden" id="id_substitute" name="id_substitute" value="{{ substitute.id }}">
+                                        </form>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        
+                                    </ul>
+                                    <br>
+                                    <br>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </section>
+{% endblock content %}

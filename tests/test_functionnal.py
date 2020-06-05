@@ -30,3 +30,8 @@ class ChromeFunctionalTestCases(StaticLiveServerTestCase):
         logout_classes = logout.get_attribute("class")
         self.assertIn("fa-sign-out-alt", logout_classes,
                       "Disconnect icon should be available.")
+
+    def test_open_pages_create_account(self):
+        self.driver.find_element_by_css_selector('#button-createaccount').click()
+        title = self.driver.title
+        self.assertEqual(title, "Pur Beurre")
